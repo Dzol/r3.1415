@@ -1,0 +1,54 @@
+
+build/output.elf:     file format elf32-littlearm
+
+
+Disassembly of section .init:
+
+00008000 <_start>:
+    8000:	e59f0060 	ldr	r0, [pc, #96]	; 8068 <v+0x10>
+    8004:	e3a00010 	mov	r0, #16
+    8008:	e3a0100a 	mov	r1, #10
+    800c:	eb000016 	bl	806c <Divide>
+    8010:	e3a01004 	mov	r1, #4
+    8014:	e0020190 	mul	r2, r0, r1
+    8018:	e59f0048 	ldr	r0, [pc, #72]	; 8068 <v+0x10>
+    801c:	e0822000 	add	r2, r2, r0
+    8020:	e3a01001 	mov	r1, #1
+    8024:	e1a01901 	lsl	r1, r1, #18
+    8028:	e5821000 	str	r1, [r2]
+
+0000802c <l>:
+    802c:	e3a01001 	mov	r1, #1
+    8030:	e1a01801 	lsl	r1, r1, #16
+    8034:	e5801028 	str	r1, [r0, #40]	; 0x28
+    8038:	e3a0283f 	mov	r2, #4128768	; 0x3f0000
+
+0000803c <u>:
+    803c:	e2422001 	sub	r2, r2, #1
+    8040:	e3520000 	cmp	r2, #0
+    8044:	1afffffc 	bne	803c <u>
+    8048:	e3a01001 	mov	r1, #1
+    804c:	e1a01801 	lsl	r1, r1, #16
+    8050:	e580101c 	str	r1, [r0, #28]
+    8054:	e3a0283f 	mov	r2, #4128768	; 0x3f0000
+
+00008058 <v>:
+    8058:	e2422001 	sub	r2, r2, #1
+    805c:	e3520000 	cmp	r2, #0
+    8060:	1afffffc 	bne	8058 <v>
+    8064:	eafffff0 	b	802c <l>
+    8068:	20200000 	.word	0x20200000
+
+Disassembly of section .text:
+
+0000806c <Divide>:
+    806c:	e3a02000 	mov	r2, #0
+
+00008070 <l>:
+    8070:	e0400001 	sub	r0, r0, r1
+    8074:	e3500000 	cmp	r0, #0
+    8078:	22822001 	addcs	r2, r2, #1
+    807c:	2afffffb 	bcs	8070 <l>
+    8080:	e1a00002 	mov	r0, r2
+    8084:	e3a00001 	mov	r0, #1
+    8088:	e1a0f00e 	mov	pc, lr
